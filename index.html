@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Script.js">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <p>
+    <form action="" class="Form"><input type="number" min="1" max="100" name="lx">
+        <p><button id="generator" type="submit">Generate</button></p>
+    </form>
+    </p>
+
+    <p><code id="output"></code></p>
+
+
+</body>
+<script>
+
+
+</script>
+<script>
+
+    (function () {
+        function IDGenerator() {
+
+            // console.log(this.length);
+            // this.length = 4;
+            this.timestamp = +new Date;
+
+            var _getRandomInt = function (min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            var _getRandomAscii = function () {
+                var randomNum = _getRandomInt(48, 57);
+                var randomLetter = _getRandomInt(65, 90);
+                var char;
+                // if (_getRandomInt(0, 1) == 0) { return randomNum; 
+                // }
+                // return randomLetter;
+                // 32
+                return String.fromCharCode(_getRandomInt(0, 1) ? randomNum : ((_getRandomInt(0, 1) ? randomLetter + 32 : randomLetter)));
+
+
+
+            }
+
+            this.generate = function (len) {
+                var ts = this.timestamp.toString();
+                var parts = ts.split("").reverse();
+                var id = "";
+
+
+                for (var i = 0; i < len; ++i) {
+                    // var index = _getRandomInt(0, parts.length - 1);
+                    // var index = _getRandomInt();
+                    var char = _getRandomAscii();
+                    console.log(char);
+                    id += char;
+                }
+
+                return id;
+            }
+
+
+        }
+        var lx;
+        const formElement = document.querySelector('.Form');
+        formElement.addEventListener('submit', event => {
+
+            event.preventDefault();
+            const formData = new FormData(formElement);
+            lx = formData.get('lx').toString();
+            console.log(lx);
+            var generator = new IDGenerator();
+            output.innerHTML = generator.generate(lx);
+
+        })
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     var btn = document.querySelector("#generator"),
+        //         output = document.querySelector("#output");
+
+        //     btn.addEventListener("click", function () {
+        //         var generator = new IDGenerator();
+        //         output.innerHTML = generator.generate();
+
+        //     }, false);
+
+        // });
+
+
+    })();
+</script>
+
+
+</html>
